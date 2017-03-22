@@ -5,7 +5,7 @@ import sys
 
 
 def do_reduce(key, values):
-    yield key, sum(values)
+    return key, sum(values)
 
 
 def main():
@@ -16,14 +16,14 @@ def main():
         key, value = line.split("\t")
         if key != prev_key and prev_key is not None:
             result_key, result_value = do_reduce(prev_key, values)
-            print(result_key + "\t" + str(result_value))
+            print "%s, %.2f" % (result_key, result_value)
             values = []
         prev_key = key
-        values.append(int(value))
+        values.append(float(value))
 
     if prev_key is not None:
         result_key, result_value = do_reduce(prev_key, values)
-        print(result_key + "\t" + str(result_value))
+        print "%s, %.2f" % (result_key, result_value)
 
 
 if __name__ == "__main__":
