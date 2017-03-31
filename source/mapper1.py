@@ -4,26 +4,24 @@
 import sys
 
 
-def do_map(record, uidfilter):
+def do_map(record):
     try:
-        (uid, timestap, url) = record.split()
-        if uid and timestap and url:
+        (uid, _, url) = record.split()
+        if uid and url:
             if uid != '-' and url != '-':
-                if int(uid) % 256 == uidfilter:
-                    yield (uid, int(float(timestap) * 1000), url)
+                yield (url, 1)
     except ValueError:
         yield
 
 
 def main():
-    # with open('/Users/usual/PycharmProjects/first/npl2//data/part-0000', 'r') as ff:
-    uidfilter = 164 #164 #253
+    # with open('/Users/usual/PycharmProjects/first/data/inLab02s.txt', 'r') as ff:
     for line in sys.stdin:
         # for line in ff:
-        ll = [x for x in do_map(line, uidfilter=uidfilter) if x]
+        ll = [x for x in do_map(line) if x]
         if ll:
-            (uid, timestamp, url) = ll[0]
-            print "%s\t%s\t%s" % (uid, timestamp, url)
+            (url, val) = ll[0]
+            print '%s\t%s' % (url, val)
 
 
 if __name__ == "__main__":

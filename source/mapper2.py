@@ -5,14 +5,16 @@ import sys
 
 
 def do_map(record):
-    (uid, ts, url) = record.split()
-    yield uid, ts, url
+    (url, v) = record.split()
+    yield (url, v)
 
 
 def main():
-    for line in sys.stdin:
-        for (uid, ts, url) in do_map(line):
-            print "%s\t%s\t%s" % (uid, ts, url)
+    with open('/Users/usual/PycharmProjects/first/data/outLab02s.txt', 'r') as ff:
+        # for line in sys.stdin:
+        for line in ff:
+            for (url, v) in do_map(line):
+                print "%s\t%s" % (v, url)
 
 
 if __name__ == "__main__":
